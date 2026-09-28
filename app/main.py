@@ -330,6 +330,17 @@ def is_allowed_file(path: Path, config: dict[str, Any]) -> bool:
     return False
 
 
+def record_is_in_enabled_sources(record: dict[str, Any], config: dict[str, Any]) -> bool:
+    try:
+        path = canonical_path(str(record.get("path", "")))
+    except (OSError, ValueError):
+        return False
+    for source in config.get("sources", []):
+        if source.get("enabled", True) and path_is_under(path, canonical_path(str(source.get("path", "")))):
+            return True
+    return False
+
+
 def requested_file(path_text: str, config: dict[str, Any]) -> Path:
     if not path_text.strip():
         raise ValueError("缺少文件路径")
@@ -597,7 +608,7 @@ def gpu_status() -> dict[str, Any]:
 
 def make_status() -> dict[str, Any]:
     config = load_config()
-    records = read_records(config)
+    records = [record for record in read_records(config) if record_is_in_enabled_sources(record, config)]
     with STATE_LOCK:
         job = dict(JOB)
     embedding_status = ENGINE.status() if ENGINE else {
@@ -631,7 +642,7 @@ def search_records(query: str, limit: int = 50) -> list[dict[str, Any]]:
             query_vector = engine.encode(query)
         except Exception as exc:
             log(f"query embedding failed: {exc}")
-    records = read_records(config)
+    records = [record for record in read_records(config) if record_is_in_enabled_sources(record, config)]
     by_path = {str(record.get("path", "")): record for record in records}
 
     # Exact text matches are always retained; semantic matches must clear a threshold.
