@@ -1,0 +1,20 @@
+# Core service uses the Python standard library.
+# Install these optional packages after confirming the service starts:
+fastapi>=0.115
+uvicorn[standard]>=0.34
+python-multipart>=0.0.20
+
+# Optional document/image extraction:
+pypdf>=5.0
+python-docx>=1.1
+openpyxl>=3.1
+Pillow>=11.0
+
+# Optional vector/search layer:
+lancedb>=0.17
+numpy>=2.0
+transformers==5.2.0
+torchvision==0.22.1
+qwen-vl-utils[decord]==0.0.14
+sentence-transformers==5.7.0
+accelerate>=1.1.0

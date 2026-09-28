@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+data/*
+cache/*
+logs/*
+models/*
+vendor/*
+.vendor/
+*.tmp
+!data/.gitkeep
+!cache/.gitkeep
+!logs/.gitkeep
+!models/.gitkeep

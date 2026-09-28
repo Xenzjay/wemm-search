@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WeMM Search</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div>
+        <p class="eyebrow">WE MM SEARCH · 本地文件检索</p>
+        <h1>把文件找出来</h1>
+        <p class="subtitle">用自然语言搜索内容，直接预览、打开或定位文件。</p>
+      </div>
+      <span id="service-badge" class="status-dot">连接中</span>
+    </header>
+    <section class="folder-card">
+      <div class="section-label">检索范围</div>
+      <div class="folder-row">
+        <div class="folder-icon">⌂</div>
+        <div class="folder-info">
+          <strong id="folder-name">还没有选择文件夹</strong>
+          <span id="folder-path">选择一个文件夹开始。</span>
+        </div>
+        <button class="button secondary" id="open-browser">更换文件夹</button>
+      </div>
+      <div class="folder-actions">
+        <button class="button primary" id="index-button" disabled>建立索引</button>
+        <span id="index-status" class="hint">建立索引后即可开始检索。</span>
+      </div>
+      <div id="progress-area" class="progress-area hidden">
+        <div class="progress-line"><span id="job-phase">准备中</span><strong id="job-percent">0%</strong></div>
+        <div class="progress-track"><div id="job-progress" class="progress-value"></div></div>
+        <div class="progress-detail"><span id="job-count">0 / 0</span><span id="job-file"></span></div>
+      </div>
+    </section>
+    <section class="search-card">
+      <div class="search-row">
+        <input id="search-input" type="search" placeholder="试试：装修预算、海边照片、某份会议记录" disabled>
+        <button class="search-button" id="search" disabled title="开始检索">⌕</button>
+      </div>
+      <p id="search-hint" class="hint">先选择文件夹并建立索引。</p>
+      <div id="category-tabs" class="category-tabs hidden" aria-label="结果分类"></div>
+      <div id="results" class="results empty">搜索结果会显示在这里。</div>
+    </section>
+    <aside id="directory-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-card">
+        <div class="modal-heading">
+          <div><p class="eyebrow">FOLDER</p><h2>选择文件夹</h2></div>
+          <button class="icon-button" id="close-browser" title="关闭" aria-label="关闭">×</button>
+        </div>
+        <div class="path-bar">
+          <input id="browse-path" type="text" placeholder="输入文件夹路径">
+          <button class="button secondary" id="browse-go">打开</button>
+        </div>
+        <div id="directory-list" class="directory-list"></div>
+        <div class="modal-footer">
+          <span id="selected-path" class="hint">未选择文件夹</span>
+          <button class="button primary" id="use-directory" disabled>使用此文件夹</button>
+        </div>
+      </div>
+    </aside>
+    <aside id="preview-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-card preview-card">
+        <div class="modal-heading">
+          <div>
+            <p class="eyebrow">PREVIEW</p>
+            <h2 id="preview-title">文件预览</h2>
+            <p id="preview-path" class="preview-path"></p>
+          </div>
+          <button class="icon-button" id="close-preview" title="关闭" aria-label="关闭">×</button>
+        </div>
+        <div id="preview-content" class="preview-content"></div>
+      </div>
+    </aside>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

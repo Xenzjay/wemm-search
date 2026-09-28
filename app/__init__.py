@@ -1,0 +1,2 @@
+"""WeMM Search application package."""
+
