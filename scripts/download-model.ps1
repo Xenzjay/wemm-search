@@ -11,8 +11,7 @@ New-Item -ItemType Directory -Force -Path $env:HF_HUB_CACHE | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "模型下载失败。" }
 $configPath = Join-Path $ProjectRoot "config\config.json"
 $config = Get-Content -Raw $configPath | ConvertFrom-Json
-$config.model.path = Join-Path $ProjectRoot "models\WeMM-Embedding-2B"
+$config.model.path = "models/WeMM-Embedding-2B"
 $config.model.enabled = $true
 $config | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 $configPath
 Write-Host "WeMM-Embedding-2B 已下载并启用。" -ForegroundColor Green
-

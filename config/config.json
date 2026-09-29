@@ -3,7 +3,7 @@
   "port": 8876,
   "model": {
     "name": "WeMM-Embedding-2B",
-    "path": "E:\\AIProject\\wemm-search\\models\\WeMM-Embedding-2B",
+    "path": "models/WeMM-Embedding-2B",
     "device": "cuda",
     "dtype": "bfloat16",
     "dimension": 512,
@@ -102,14 +102,7 @@
     "text_batch_size": 4,
     "max_image_side": 1024
   },
-  "sources": [
-    {
-      "id": "da3b9d859c83",
-      "name": "tmp",
-      "path": "E:\\tmp",
-      "enabled": true
-    }
-  ],
+  "sources": [],
   "backup": {
     "enabled": false,
     "path": ""

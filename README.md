@@ -1,6 +1,6 @@
 # WeMM Search
 
-一个简单的本地文件语义搜索工具。
+一个简单的本地文件语义搜索工具，支持文本、图片和多种文档格式。
 
 你只需要：
 
@@ -9,11 +9,13 @@
 3. 点击“开始索引”。
 4. 输入自然语言搜索文件。
 
-## 位置
+## 项目特点
 
-```text
-E:\AIProject\wemm-search
-```
+- 自然语言检索文件
+- 图片缩略图、文件预览、打开文件和打开所在文件夹
+- 关键词命中与语义相关结果混合排序
+- 支持从其他设备访问网页
+- 模型不打包进 GitHub 仓库，首次使用时从官方地址下载
 
 ## 第一次安装
 
@@ -37,7 +39,13 @@ scripts\setup.bat
 scripts\download-model.bat
 ```
 
-模型约占数 GB，只需要下载一次。
+脚本会从官方 Hugging Face 仓库下载模型，只需要下载一次。
+
+官方模型页面：
+
+<https://huggingface.co/tencent/WeMM-Embedding-2B>
+
+使用模型前请阅读官方模型页和许可证说明。
 
 ## 平时使用
 
@@ -47,10 +55,10 @@ scripts\download-model.bat
 scripts\start.bat
 ```
 
-浏览器会自动打开：
+浏览器会自动打开服务页面。默认端口为 `8876`，从其他设备访问时使用运行服务设备的局域网地址：
 
 ```text
-http://127.0.0.1:8876
+http://<服务设备地址>:8876
 ```
 
 网页中的操作只有三步：
@@ -96,7 +104,7 @@ scripts\status.bat
 
 ## 索引说明
 
-首版支持：
+当前索引支持：
 
 - TXT
 - Markdown
@@ -115,7 +123,7 @@ scripts\status.bat
 - 当前处理文件
 - 已处理数量
 
-图片会先缩小到适合显存的尺寸，再交给模型处理。你的 RTX 4060 Ti 8GB 使用默认配置即可。
+图片会先缩小到适合显存的尺寸，再交给模型处理。显存 8GB 的 NVIDIA 显卡可以使用默认配置；其他硬件可能需要调整模型和批大小。
 
 原始文件只读，不会被移动、重命名或修改。
 
@@ -134,6 +142,15 @@ scripts\status.bat
 图片语义检索依赖 WeMM 模型对图片内容生成的向量。为了减少误召回，纯语义图片结果使用比普通文档更高的相关度门槛，并限制最多补充少量结果；关键词直接命中仍然优先。
 
 其他类型仍然可以出现在索引配置允许的范围内，但网页只显示文件信息，并提供打开文件夹入口。
+
+## 模型与隐私
+
+- 本仓库不包含 WeMM-Embedding-2B 模型权重。
+- 模型请通过 `scripts\download-model.bat` 从官方 Hugging Face 页面下载：
+  <https://huggingface.co/tencent/WeMM-Embedding-2B>
+- GitHub 仓库不包含虚拟环境、缓存、日志或本地索引数据。
+- 默认配置不包含预设检索目录；启动后在网页中选择需要检索的文件夹。
+- 文件内容、索引和运行日志保存在运行服务的设备上，不会自动上传到 GitHub。
 
 ## 数据位置
 
@@ -164,7 +181,7 @@ scripts\index.bat --initial
 备份索引和配置：
 
 ```text
-scripts\backup.bat "E:\Backups\wemm-search"
+scripts\backup.bat ".\backups\wemm-search"
 ```
 
 日常使用不需要执行这些入口，直接使用 `start.bat` 和网页即可。
@@ -189,10 +206,10 @@ logs\service.out.log
 scripts\status.bat
 ```
 
-确认服务地址是：
+确认服务端口为：
 
 ```text
-http://127.0.0.1:8876
+8876
 ```
 
 如果 8876 端口被其他程序占用，修改：
